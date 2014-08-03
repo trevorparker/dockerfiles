@@ -1,0 +1,18 @@
+server {
+  server_name trevorparker.com;
+  listen 80 default_server;
+
+  root /srv/website;
+  index index.html;
+
+  error_page 404 /error/404.html;
+
+  location / {
+    rewrite /\d\d\d\d/\d\d/(.*)$ https://www.trevorparker.com/$1 permanent;
+  }
+
+  location /assets {
+    expires 1w;
+  }
+}
+
