@@ -3,6 +3,10 @@ backend default {
   .port = "80";
 }
 
+sub vcl_fetch {
+  set obj.ttl = 12h;
+}
+
 sub vcl_recv {
   set req.http.Host = "www.trevorparker.com";
   if (req.http.X-Forwarded-Proto !~ "(?i)https") {
