@@ -4,7 +4,7 @@ backend default {
 }
 
 sub vcl_fetch {
-  set obj.ttl = 12h;
+  set beresp.ttl = 1h;
 }
 
 sub vcl_recv {
