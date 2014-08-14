@@ -4,7 +4,14 @@ backend default {
 }
 
 sub vcl_fetch {
-  set beresp.ttl = 1h;
+  if (beresp.ttl < 1h) {
+    if (beresp.http.Cache-Control ~ "(private|no-cache|no-store)") {
+      set beresp.ttl = 5m;
+    }
+    else {
+      set beresp.ttl = 1h;
+    }
+  }
 }
 
 sub vcl_recv {
